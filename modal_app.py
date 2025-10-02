@@ -4,13 +4,13 @@ image = modal.Image.debian_slim().pip_install(
     "streamlit",
     "pandas", 
     "plotly",
-    "supabase",
-    "python-dotenv"
+    "supabase"
 )
 
-app = modal.App("cage-matcher", image=image)
+app = modal.App("cage-matcher")
 
 @app.function(
+    image=image,
     secrets=[modal.Secret.from_name("my-supabase-secret")],
     timeout=600,
 )
@@ -18,11 +18,15 @@ app = modal.App("cage-matcher", image=image)
 def run():
     import subprocess
     import sys
+    import os
     
-    # Use Python module approach instead of direct command
+    # Check what files are available
+    print("Current directory:", os.getcwd())
+    print("Files in directory:", os.listdir('.'))
+    
     cmd = [
         sys.executable, "-m", "streamlit", "run", 
-        "/root/app.py",
+        "app.py",
         "--server.port=8000",
         "--server.enableCORS=false", 
         "--server.enableXsrfProtection=false",
