@@ -8,8 +8,8 @@ import time
 import sys
 
 # LLM API Configuration
-endpoint = "https://cdong1--azure-proxy-web-app.modal.run"
-api_key = "supersecretkey"
+endpoint = "you know, the API Link"
+api_key = "and that key, too"
 deployment_name = "gpt-4o"
 
 def setup_client():
